@@ -10,6 +10,30 @@
 
 makeCacheMatrix <- function(x = matrix()) {
 
+    ##  Establish a  valriable to hold the matrix
+    inverseMatrix <- NULL
+
+
+    ##  Set the value of the matrix
+    set <- function(y) { 
+        x <<- y 
+         inv <<- NULL 
+    } 
+
+    ##  Get the value of the matrix
+    get <- function() x
+
+    ##  Set the value of the inverse of the matrix
+    setInverse <- function(inverse) inverseMatrix <<- inverse
+
+    ##  Get the value of the inverse of the matrix
+    getInverse <- function() inverseMatrix
+    
+    ##  We can retund the functions using a list
+    list(set = set, get = get
+         setInverse = setInverse
+         getInverse = getInverse)
+
 }
 
 
