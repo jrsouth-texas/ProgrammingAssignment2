@@ -10,29 +10,29 @@
 
 makeCacheMatrix <- function(x = matrix()) {
 
-    ##  Establish a  valriable to hold the matrix
-    inverseMatrix <- NULL
+        ##  Establish a  valriable to hold the matrix
+        inverseMatrix <- NULL
 
 
-    ##  Set the value of the matrix
-    set <- function(y) { 
-        x <<- y 
-         inv <<- NULL 
-    } 
+        ##  Set the value of the matrix
+        set <- function(y) { 
+                x <<- y 
+                inv <<- NULL 
+        } 
 
-    ##  Get the value of the matrix
-    get <- function() x
+        ##  Get the value of the matrix
+        get <- function() x
 
-    ##  Set the value of the inverse of the matrix
-    setInverse <- function(inverse) inverseMatrix <<- inverse
+        ##  Set the value of the inverse of the matrix
+        setInverse <- function(inverse) inverseMatrix <<- inverse
 
-    ##  Get the value of the inverse of the matrix
-    getInverse <- function() inverseMatrix
+        ##  Get the value of the inverse of the matrix
+        getInverse <- function() inverseMatrix
     
-    ##  We can retund the functions using a list
-    list(set = set, get = get
-         setInverse = setInverse
-         getInverse = getInverse)
+        ##  We can retund the functions using a list
+        list(set = set, get = get
+                setInverse = setInverse
+                getInverse = getInverse)
 
 }
 
@@ -43,4 +43,21 @@ makeCacheMatrix <- function(x = matrix()) {
 
 cacheSolve <- function(x, ...) {
         ## Return a matrix that is the inverse of 'x'
+        inverseMatrix <- x$getInverse()
+        
+        ## Check to see if we have already calculated and cached the inverse of the matrix
+        if(!is.null(inverseMatrix)) {
+                message("getting cached data")
+                return(inverseMatrix)
+        }
+        
+        ##  At this point, we know the inverse has not been previously calculeted, so we complete the calculation.
+        data <- x$get()
+        inverseMatrix <- solve(data, ...)
+        
+        ##  We take the inverse that we calculated and place it into cache
+        x$setInverse(inverseMatrix)
+        
+        ##  Return the inverse of the matrix
+        inverseMatrix
 }
