@@ -11,6 +11,10 @@
 makeCacheMatrix <- function(x = matrix()) {
 
         ##  Establish a  valriable to hold the matrix
+        ##  We NULL out the matrix to ensure that that we have a completely clear space to work with. 
+        ##  The calculation is agnostic to whether the matrix is hard data coming into it, or a
+        ##  cached matrix.
+  
         inverseMatrix <- NULL
 
 
@@ -29,7 +33,7 @@ makeCacheMatrix <- function(x = matrix()) {
         ##  Get the value of the inverse of the matrix
         getInverse <- function() inverseMatrix
     
-        ##  We can retund the functions using a list
+        ##  We can return the functions using a list
         list(set = set, get = get
                 setInverse = setInverse
                 getInverse = getInverse)
@@ -46,6 +50,8 @@ cacheSolve <- function(x, ...) {
         inverseMatrix <- x$getInverse()
         
         ## Check to see if we have already calculated and cached the inverse of the matrix
+        ##  If we have, we'll return the inverse of the matrix.  
+        
         if(!is.null(inverseMatrix)) {
                 message("getting cached data")
                 return(inverseMatrix)
@@ -56,6 +62,7 @@ cacheSolve <- function(x, ...) {
         inverseMatrix <- solve(data, ...)
         
         ##  We take the inverse that we calculated and place it into cache
+        ##  We are holding the cached matrix in a list as a component of x.
         x$setInverse(inverseMatrix)
         
         ##  Return the inverse of the matrix
